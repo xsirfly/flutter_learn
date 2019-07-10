@@ -3,6 +3,46 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
+class FavoriteWidget extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _FavoriteState();
+  }
+}
+
+class _FavoriteState extends State<FavoriteWidget> {
+  bool _favorite = true;
+  int _favoriteCount = 41;
+
+  void fav() {
+    setState(() {
+      if (_favorite) {
+        _favoriteCount -= 1;
+      } else {
+        _favoriteCount += 1;
+      }
+      _favorite = !_favorite;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: fav,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Icon(
+            _favorite ? Icons.star : Icons.star_border,
+            color: Colors.red,
+          ),
+          Text("$_favoriteCount")
+        ],
+      ),
+    );
+  }
+}
+
 class MyApp extends StatelessWidget {
   
   Widget _titleSection() => Container(
@@ -30,11 +70,7 @@ class MyApp extends StatelessWidget {
             ],
           ),
         ),
-        Icon(
-          Icons.star,
-          color: Colors.red,
-        ),
-        Text("41")
+        FavoriteWidget()
       ],
     ),
   );
